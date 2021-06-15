@@ -1,34 +1,46 @@
-var ispnum = function(num) {
-    for(var i = 2; i < num; i++)
-      if  (num % i === 0) return false;
-    return num > 1;
-};
-
-const fibonacci = (num) => {
-    if (num <= 1)return 1;
-  return fibonacci(num - 1) + fibonacci(num - 2);
-};
-
-function nxtPrmFib(number) {
-    let r = 0;
-    let l = 1;
-    while (true) {
-        var fib = fibonacci(l);
-        console.log('fib', fib, number);
-        if (fib > number) {
-            if (ispnum(fib)) {
-                r = fib;
-                break;
-                } else {
-                    l = l + 1;    
-                    console.warn('bumping to ', fib);
-                }
-            } else {
-                l = l + 1;
-                console.warn('bumping to', fib);
-            }
+function isPrimaryNumber(number) {
+    // Primary number can't be less than 2
+    if (number <= 1) {
+        return false;
     }
-    console.warn('Next prime fib ', r);
+
+    // Primary number can't be even
+    if (number % 2 === 0) {
+        return false;
+    }
+
+    for (let i = 3; i < number; i += 2) {
+        if (number % i === 0) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
-nxtPrmFib(20);
+function fibonacci(number) {
+    if (number <= 1) {
+        return 1;
+    }
+
+    return fibonacci(number - 1) + fibonacci(number - 2);
+}
+
+function nextPrimaryFibonacci(number) {
+    for (let i = 1; i < 1000; i++) {
+        const fibNumber = fibonacci(i);
+        const isPrimary = isPrimaryNumber(fibNumber);
+
+        // Log info about current iteration of looking for next prime and fibonacci number
+        console.log('fib', fibNumber, number);
+
+        if (fibNumber > number && isPrimary) {
+            return fibNumber;
+        }
+
+        console.warn('bumping to ', fibNumber);
+    }
+}
+
+const nextNum = nextPrimaryFibonacci(20);
+console.warn('Next prime fib ', nextNum);
