@@ -18,13 +18,22 @@ function isPrimaryNumber(number) {
     return true;
 }
 
-function fibonacci(number) {
-    if (number <= 1) {
-        return 1;
-    }
+const fibonacci = (function () {
+    const cache = new Map();
 
-    return fibonacci(number - 1) + fibonacci(number - 2);
-}
+    return function fibonacci(number) {
+        if (number <= 1) {
+            return 1;
+        }
+
+        if (!cache.has(number)) {
+            const result = fibonacci(number - 1) + fibonacci(number - 2);
+            cache.set(number, result);
+        }
+
+        return cache.get(number);
+    };
+})();
 
 function nextPrimaryFibonacci(number) {
     for (let i = 1; i < 1000; i++) {
