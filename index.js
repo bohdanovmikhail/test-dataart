@@ -36,7 +36,7 @@ const fibonacci = (function () {
 })();
 
 function nextPrimaryFibonacci(number) {
-    for (let i = 1; i < 1000; i++) {
+    for (let i = 1;; i++) {
         const fibNumber = fibonacci(i);
         const isPrimary = isPrimaryNumber(fibNumber);
 
